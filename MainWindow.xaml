@@ -65,7 +65,22 @@
         <TextBlock Grid.Column="1" Text="Macierz grafu" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" />
         <Button Content="Zapisz" Grid.Column="2" FontSize="30" x:Name="Zapisz" Click="Zapisz_Click"/>
         <!--Rysowanie grafu jakos-->
-       
+        <Grid Grid.Row="3" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Suma krawędzi w grafie"  FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="1"  x:Name="SumaKrawedzi"  FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Gęstość grafu"  FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <TextBlock Grid.Row="1"  x:Name="GestoscGrafu"  FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        </Grid>
         
     </Grid>
 </Window>

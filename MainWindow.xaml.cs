@@ -31,7 +31,7 @@ namespace Grafy
         static int pkt = 0;
         List<int> Lista = new List<int>();
         List<string[]> list = new List<string[]>();
-        
+
         private void PrzyciskOdWszystkiego_Click(object sender, RoutedEventArgs e)
         { // Generowanie losowej macierzy zaleznej od ilosci pkt i szansy
             MacierzDataGrid.ItemsSource = null;
@@ -43,7 +43,7 @@ namespace Grafy
             int[,] M = new int[pkt, pkt];
             int sz = int.Parse(Szansa.Text);
 
-           
+
             Random generator = new Random();
             for (int i = 0; i < pkt; i++)
             {
@@ -73,7 +73,7 @@ namespace Grafy
                 MacierzDataGrid.Items.Add(list[i]);
             }
             // Definicja kolumn w datagridzie
-            
+
             for (int i = 0; i < pkt; i++)
             {
                 var col = new DataGridTextColumn();
@@ -97,7 +97,7 @@ namespace Grafy
                 }
 
             }
-           
+
 
 
             foreach (int i in suma)
@@ -126,7 +126,7 @@ namespace Grafy
 
             //sąsiadowanie
             Sasiadowanie.Items.Clear();
-           string[] sasiady = new string[pkt];
+            string[] sasiady = new string[pkt];
             for (int i = 0; i < pkt; i++)
             {
 
@@ -142,9 +142,17 @@ namespace Grafy
 
             }
 
+            //Suma krawędzi w grafie : 
+            int sumaPolaczen = 0;
+            foreach (var item in suma)
+            {
+                sumaPolaczen += item;
+            }
+            SumaKrawedzi.Text = (sumaPolaczen).ToString();
 
+            //Gestość grafu
 
-
+            GestoscGrafu.Text = (Double.Parse(SumaKrawedzi.Text) / pkt * (pkt - 1)).ToString();
         }
 
         private void Zapisz_Click(object sender, RoutedEventArgs e)
@@ -178,6 +186,10 @@ namespace Grafy
             sw.WriteLine("Posortowany :");
             sw.WriteLine(Posortowane.Text);
 
+            sw.WriteLine("Suma połączeń w grafie:" + SumaKrawedzi.Text);
+
+            sw.WriteLine();
+            sw.WriteLine("Gęstość grafu to :" + (Double.Parse(SumaKrawedzi.Text)/ pkt*(pkt -1) ).ToString());
             sw.Close();
         }
         //Rysowanie ma byc w nowym oknie
