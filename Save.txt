@@ -1,0 +1,26 @@
+Macierz : 
+0 0 0 0 0 1 1 0 1 0 
+0 0 1 0 1 0 0 0 1 1 
+0 1 0 0 1 1 0 0 1 0 
+0 0 0 0 0 0 0 1 0 0 
+0 1 1 0 0 0 1 0 0 1 
+1 0 1 0 0 0 1 0 1 0 
+1 0 0 0 1 1 0 0 0 0 
+0 0 0 1 0 0 0 0 0 0 
+1 1 1 0 0 1 0 0 0 0 
+0 1 0 0 1 0 0 0 0 0 
+
+Sąsiadowanie
+punkt 0 sąsiaduje z : 5 6 8 
+punkt 1 sąsiaduje z : 2 4 8 9 
+punkt 2 sąsiaduje z : 1 4 5 8 
+punkt 3 sąsiaduje z : 7 
+punkt 4 sąsiaduje z : 1 2 6 9 
+punkt 5 sąsiaduje z : 0 2 6 8 
+punkt 6 sąsiaduje z : 0 4 5 
+punkt 7 sąsiaduje z : 3 
+punkt 8 sąsiaduje z : 0 1 2 5 
+punkt 9 sąsiaduje z : 1 4 
+
+Posortowany :
+{4,4,4,4,4,4,3,3,2,1,1}

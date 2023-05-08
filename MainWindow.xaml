@@ -63,5 +63,9 @@
             <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"  >Twórcy programu : Lizak Kacper , Pawełek Patryk, Maciej Małutowski</TextBlock>
         </Grid>
         <TextBlock Grid.Column="1" Text="Macierz grafu" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        <Button Content="Zapisz" Grid.Column="2" FontSize="30" x:Name="Zapisz" Click="Zapisz_Click"/>
+        <!--Rysowanie grafu jakos-->
+       
+        
     </Grid>
 </Window>

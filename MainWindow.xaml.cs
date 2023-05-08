@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
@@ -14,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Newtonsoft.Json;
+
 
 namespace Grafy
 {
@@ -27,15 +28,22 @@ namespace Grafy
         {
             InitializeComponent();
         }
-
+        static int pkt = 0;
+        List<int> Lista = new List<int>();
+        List<string[]> list = new List<string[]>();
+        
         private void PrzyciskOdWszystkiego_Click(object sender, RoutedEventArgs e)
-        { // Generowanie losowej macierzy
+        { // Generowanie losowej macierzy zaleznej od ilosci pkt i szansy
+            MacierzDataGrid.ItemsSource = null;
             MacierzDataGrid.Items.Clear();
-            int pkt = int.Parse(Rozmiar.Text);
-            List<string[]> list = new List<string[]>();
+            MacierzDataGrid.Columns.Clear();
+            list.Clear();
+            Lista.Clear();
+            pkt = int.Parse(Rozmiar.Text);
+            int[,] M = new int[pkt, pkt];
             int sz = int.Parse(Szansa.Text);
 
-            int[,] M = new int[pkt, pkt];
+           
             Random generator = new Random();
             for (int i = 0; i < pkt; i++)
             {
@@ -64,7 +72,8 @@ namespace Grafy
                 list.Add(m);
                 MacierzDataGrid.Items.Add(list[i]);
             }
-            // Define the columns
+            // Definicja kolumn w datagridzie
+            
             for (int i = 0; i < pkt; i++)
             {
                 var col = new DataGridTextColumn();
@@ -88,7 +97,7 @@ namespace Grafy
                 }
 
             }
-            List<int> Lista = new List<int>();
+           
 
 
             foreach (int i in suma)
@@ -137,5 +146,42 @@ namespace Grafy
 
 
         }
+
+        private void Zapisz_Click(object sender, RoutedEventArgs e)
+        {
+            string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            string filePath = System.IO.Path.Combine(projectDirectory, "Save.txt");
+            StreamWriter sw = new StreamWriter(filePath);
+            sw.WriteLine("Macierz : ");
+
+
+            //Wpisanie macierzy do pliku TXT
+            foreach (string[] tablica in list)
+            {
+                foreach (string item in tablica)
+                {
+                    sw.Write(item + " ");
+                }
+                sw.WriteLine();
+            }
+            sw.WriteLine();
+            //Wpisanie sąsiadowania do macierzy 
+
+            sw.WriteLine("Sąsiadowanie");
+            foreach (var item in Sasiadowanie.Items)
+            {
+                sw.WriteLine(item.ToString());
+            }
+
+            //Wpisanie szeregu 
+            sw.WriteLine();
+            sw.WriteLine("Posortowany :");
+            sw.WriteLine(Posortowane.Text);
+
+            sw.Close();
+        }
+        //Rysowanie ma byc w nowym oknie
+        
+
     }
 }
