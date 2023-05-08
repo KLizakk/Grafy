@@ -31,7 +31,7 @@ namespace Grafy
         static int pkt = 0;
         List<int> Lista = new List<int>();
         List<string[]> list = new List<string[]>();
-
+        int[,] M;
         private void PrzyciskOdWszystkiego_Click(object sender, RoutedEventArgs e)
         { // Generowanie losowej macierzy zaleznej od ilosci pkt i szansy
             MacierzDataGrid.ItemsSource = null;
@@ -40,7 +40,7 @@ namespace Grafy
             list.Clear();
             Lista.Clear();
             pkt = int.Parse(Rozmiar.Text);
-            int[,] M = new int[pkt, pkt];
+            M = new int[pkt, pkt];
             int sz = int.Parse(Szansa.Text);
 
 
@@ -185,15 +185,146 @@ namespace Grafy
             sw.WriteLine();
             sw.WriteLine("Posortowany :");
             sw.WriteLine(Posortowane.Text);
-
+            //Wypisanie sumy połączń w grafie
             sw.WriteLine("Suma połączeń w grafie:" + SumaKrawedzi.Text);
 
             sw.WriteLine();
-            sw.WriteLine("Gęstość grafu to :" + (Double.Parse(SumaKrawedzi.Text)/ pkt*(pkt -1) ).ToString());
+            sw.WriteLine("Gęstość grafu to :" + (Double.Parse(SumaKrawedzi.Text) / pkt * (pkt - 1)).ToString());
             sw.Close();
         }
         //Rysowanie ma byc w nowym oknie
-        
 
+
+
+        //BFS
+        struct dane
+        {
+            public int odległość;
+            public int poprzednik;
+        };
+        static dane[] BFS(int[,] macierz, int start)
+        {
+            dane[] tab = new dane[macierz.GetLength(0)];
+            for (int i = 0; i < macierz.GetLength(0); i++)
+            {
+                tab[i].odległość = int.MaxValue;
+                tab[i].poprzednik = -1;
+            }
+            tab[start].odległość = 0;
+            Queue<int> q = new Queue<int>();
+            q.Enqueue(start);
+            while (q.Count != 0)
+            {
+                int u = q.Dequeue();
+                for (int i = 0; i < macierz.GetLength(0); i++)
+                {
+                    if (macierz[u, i] > 0 && tab[i].odległość == int.MaxValue)
+                    {
+                        tab[i].odległość = tab[u].odległość + 1;
+                        tab[i].poprzednik = u;
+                        q.Enqueue(i);
+                    }
+                }
+            }
+            return tab;
+        }
+
+        static void wypiszdane(int i, dane d, ListBox blist)
+        {
+
+            blist.Items.Add("{0}\t" + i);
+            if (d.odległość == int.MaxValue)
+            {
+                blist.Items.Add("nieosiągalny");
+            }
+            else
+            {
+                blist.Items.Add($"{0}\t" + d.odległość);
+                if (d.poprzednik == -1)
+                    blist.Items.Add("brak");
+                else blist.Items.Add("{0}" + d.poprzednik); ;
+            }
+
+        }
+
+        private void BFSbutton_Click(object sender, RoutedEventArgs e)
+        {
+            dane[] tab = BFS(M, 0);
+            for (int i = 0; i < pkt; i++)
+            {
+
+                wypiszdane(i, tab[i], BFSlistBox);
+            }
+        }
+
+        //Metodka rysująca
+
+        public void Rysuj(Canvas canvas)
+        {
+
+            
+            int nodeCount = pkt;
+            int nodeSize = 20; // rozmiar wierzchołka
+            double centerX = nodeCount * nodeSize / 2;
+            double centerY = nodeCount * nodeSize / 2;
+            double radius = nodeCount * nodeSize / 2 - nodeSize / 2; // promień okręgu
+            for (int i = 0; i < nodeCount; i++)
+            {
+                // obliczenie pozycji wierzchołka na okręgu
+                double angle = 2 * Math.PI / nodeCount * i;
+                double x = centerX + radius * Math.Cos(angle);
+                double y = centerY + radius * Math.Sin(angle);
+
+                // rysowanie wierzchołka
+                Ellipse node = new Ellipse()
+                {
+                    Width = nodeSize,
+                    Height = nodeSize,
+                    Fill = Brushes.Red
+                };
+                Canvas.SetLeft(node, x - nodeSize / 2);
+                Canvas.SetTop(node, y - nodeSize / 2);
+                canvas.Children.Add(node);
+                //
+                FormattedText number = new FormattedText(
+                 i.ToString(),
+                 System.Globalization.CultureInfo.CurrentCulture,
+                 FlowDirection.LeftToRight,
+                 new Typeface("Arial"),
+                 12,
+                 Brushes.White,
+                VisualTreeHelper.GetDpi(node).PixelsPerDip
+                 );
+                // rysowanie krawędzi
+                for (int j = 0; j < nodeCount; j++)
+                {
+                    if (M[i, j] == 1)
+                    {
+                        // obliczenie pozycji wierzchołka docelowego na okręgu
+                        double angle2 = 2 * Math.PI / nodeCount * j;
+                        double x2 = centerX + radius * Math.Cos(angle2);
+                        double y2 = centerY + radius * Math.Sin(angle2);
+
+                        Line edge = new Line()
+                        {
+                            X1 = x,
+                            Y1 = y,
+                            X2 = x2,
+                            Y2 = y2,
+                            Stroke = Brushes.Black,
+                            StrokeThickness = 2
+                        };
+                        canvas.Children.Add(edge);
+                    }
+                }
+            }
+
+        }
+
+        private void Rysujbutton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            Rysuj(CanvasRysuj);
+        }
     }
 }

@@ -5,14 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Grafy"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="470" Width="900">
     <Grid Height="434" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
@@ -48,8 +50,8 @@
             <TextBlock Text="Podaj szanse  " FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <TextBox Grid.Row="1" x:Name="Szansa" />
         </Grid>
-        <Button x:Name="PrzyciskOdWszystkiego"  Grid.Row="3" Content="OK" FontSize="30" Click="PrzyciskOdWszystkiego_Click" Background="Aqua"></Button>
-        <Grid Grid.Row="1" Grid.Column="2" Background="Green">
+        <Button x:Name="PrzyciskOdWszystkiego"  Grid.Row="2" Content="OK" FontSize="30" Click="PrzyciskOdWszystkiego_Click" Background="Aqua"></Button>
+        <Grid Grid.Row="4" Grid.Column="1" Background="Green">
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
@@ -57,15 +59,22 @@
             <TextBlock Text="Posortowany ciąg" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <TextBlock Grid.Row="1" x:Name="Posortowane" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Grid>
-        <ListBox  x:Name="Sasiadowanie" Grid.Row="2" Grid.Column="2"/>
-
-        <Grid Grid.Row="4" Grid.ColumnSpan="3" Background="Gray">
+        <Grid Grid.Column="3" Background="Gray">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Text="BFS" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <ListBox x:Name="BFSlistBox"  Grid.Row="1"  Background="Gray"/>
+        </Grid>
+        
+        <Grid Grid.Row="5" Grid.ColumnSpan="4" Background="Gray">
             <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"  >Twórcy programu : Lizak Kacper , Pawełek Patryk, Małutowski Maciej</TextBlock>
         </Grid>
         <TextBlock Grid.Column="1" Text="Macierz grafu" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" />
-        <Button Content="Zapisz" Grid.Column="2" FontSize="30" x:Name="Zapisz" Click="Zapisz_Click"/>
+        <Button Content="Zapisz" Grid.Row="4" FontSize="30" x:Name="Zapisz" Click="Zapisz_Click"/>
         <!--Rysowanie grafu jakos-->
-        <Grid Grid.Row="3" Grid.Column="2">
+        <Grid Grid.Row="4" Grid.Column="2">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -81,6 +90,26 @@
             <TextBlock Text="Gęstość grafu"  FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             <TextBlock Grid.Row="1"  x:Name="GestoscGrafu"  FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>
+        <Grid Grid.Row="3">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button x:Name="Rysujbutton" Content="Rysuj graf" Click="Rysujbutton_Click"/>
+            <Button x:Name="BFSbutton" Content="BFS" Grid.Row="2" Click="BFSbutton_Click"/>
+        </Grid>
+        <Grid Grid.Column="3" Grid.Row="1" Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center">Sąsiadowanie</TextBlock>
+           
+            <ListBox  x:Name="Sasiadowanie"  Grid.Row="1"/>
+        </Grid>
+        <Grid Grid.Column="2"  Grid.Row="1" Grid.RowSpan="3">
+            <Canvas  x:Name="CanvasRysuj"/>
+        </Grid>    
         
     </Grid>
 </Window>
