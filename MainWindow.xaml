@@ -47,7 +47,7 @@
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Text="Podaj szanse  " FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Text="Podaj szanse na wystąpienie krawędzi (od 0 do 100) " FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" />
             <TextBox Grid.Row="1" x:Name="Szansa" />
         </Grid>
         <Button x:Name="PrzyciskOdWszystkiego"  Grid.Row="2" Content="OK" FontSize="30" Click="PrzyciskOdWszystkiego_Click" Background="Aqua"></Button>
