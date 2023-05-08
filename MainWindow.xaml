@@ -17,13 +17,14 @@
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
+            <RowDefinition Height="20"></RowDefinition>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="3">
-            <DataGrid x:Name="MacierzDataGrid" IsReadOnly="True">
+        <Grid Grid.Row="1" Grid.Column="1"  Grid.RowSpan="2">
+            <DataGrid x:Name="MacierzDataGrid" IsReadOnly="True" AutoGenerateColumns="False">
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type DataGridColumnHeader}">
                         <Setter Property="Background" Value="Green"/>
-                      
+                        
                     </Style>
                 </DataGrid.Resources>
              
@@ -47,10 +48,20 @@
             <TextBlock Text="Podaj szanse  " FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center" />
             <TextBox Grid.Row="1" x:Name="Szansa" />
         </Grid>
-        <Button x:Name="PrzyciskOdWszystkiego"  Grid.Row="3" Content="OK" FontSize="30" Click="PrzyciskOdWszystkiego_Click"></Button>
-        
-     
-    
-        
+        <Button x:Name="PrzyciskOdWszystkiego"  Grid.Row="3" Content="OK" FontSize="30" Click="PrzyciskOdWszystkiego_Click" Background="Aqua"></Button>
+        <Grid Grid.Row="1" Grid.Column="2" Background="Green">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Text="Posortowany ciąg" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <TextBlock Grid.Row="1" x:Name="Posortowane" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+        <ListBox  x:Name="Sasiadowanie" Grid.Row="2" Grid.Column="2"/>
+
+        <Grid Grid.Row="4" Grid.ColumnSpan="3" Background="Gray">
+            <TextBlock FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center"  >Twórcy programu : Lizak Kacper , Pawełek Patryk, Maciej Małutowski</TextBlock>
+        </Grid>
+        <TextBlock Grid.Column="1" Text="Macierz grafu" FontSize="25" VerticalAlignment="Center" HorizontalAlignment="Center" />
     </Grid>
 </Window>

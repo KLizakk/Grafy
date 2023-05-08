@@ -29,7 +29,7 @@ namespace Grafy
         }
 
         private void PrzyciskOdWszystkiego_Click(object sender, RoutedEventArgs e)
-        {
+        { // Generowanie losowej macierzy
             MacierzDataGrid.Items.Clear();
             int pkt = int.Parse(Rozmiar.Text);
             List<string[]> list = new List<string[]>();
@@ -40,21 +40,18 @@ namespace Grafy
             for (int i = 0; i < pkt; i++)
             {
                 string[] m = new string[pkt];
-
                 for (int j = 0; j < pkt; j++)
                 {
                     if (j == i)
                     {
                         M[i, j] = 0;
-                       
                     }
-                    else
+                    else if (j > i)
                     {
-                        
                         if (sz > generator.Next(101))
                         {
                             M[i, j] = 1;
-                            M[j, i] = M[i, j];
+                            M[j, i] = 1;
                         }
                         else
                         {
@@ -65,8 +62,8 @@ namespace Grafy
                     m[j] = M[i, j].ToString();
                 }
                 list.Add(m);
+                MacierzDataGrid.Items.Add(list[i]);
             }
-            MacierzDataGrid.AutoGenerateColumns = false;
             // Define the columns
             for (int i = 0; i < pkt; i++)
             {
@@ -76,8 +73,69 @@ namespace Grafy
                 MacierzDataGrid.Columns.Add(col);
             }
 
-            // Set the ItemsSource
-            MacierzDataGrid.ItemsSource = list;
+
+
+
+            //suma wierszy
+            int[] suma = new int[pkt];
+
+            for (int i = 0; i < pkt; i++)
+            {
+                suma[i] = 0;
+                for (int j = 0; j < pkt; j++)
+                {
+                    suma[i] += M[i, j];
+                }
+
+            }
+            List<int> Lista = new List<int>();
+
+
+            foreach (int i in suma)
+            {
+                Lista.Add(i);
+            }
+
+            Lista.Sort();
+
+            for (int i = pkt; i > 0; i--)
+            {
+                if (i == pkt)
+                {
+                    Posortowane.Text = ("{" + Lista[i - 1] + ",");
+                }
+                if (i == 1)
+                {
+                    Posortowane.Text += (Lista[i - 1] + "}");
+                }
+                else
+                {
+                    Posortowane.Text += (Lista[i - 1] + ",");
+                }
+
+            }
+
+            //sąsiadowanie
+            Sasiadowanie.Items.Clear();
+           string[] sasiady = new string[pkt];
+            for (int i = 0; i < pkt; i++)
+            {
+
+                for (int j = 0; j < pkt; j++)
+                {
+
+                    if (M[i, j] == 1)
+                    {
+                        sasiady[i] += (j + " ");
+                    }
+                }
+                Sasiadowanie.Items.Add("punkt " + i + " sąsiaduje z : " + sasiady[i]);
+
+            }
+
+
+
+
         }
     }
 }
