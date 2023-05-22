@@ -152,7 +152,7 @@ namespace Grafy
 
             //Gestość grafu
 
-            GestoscGrafu.Text = (Double.Parse(SumaKrawedzi.Text) / pkt * (pkt - 1)).ToString();
+            GestoscGrafu.Text = (2*Double.Parse(SumaKrawedzi.Text) / pkt * (pkt - 1)).ToString();
         }
 
         private void Zapisz_Click(object sender, RoutedEventArgs e)
@@ -189,7 +189,7 @@ namespace Grafy
             sw.WriteLine("Suma połączeń w grafie:" + SumaKrawedzi.Text);
 
             sw.WriteLine();
-            sw.WriteLine("Gęstość grafu to :" + (Double.Parse(SumaKrawedzi.Text) / pkt * (pkt - 1)).ToString());
+            sw.WriteLine("Gęstość grafu to :" + GestoscGrafu);
             sw.Close();
         }
         //Rysowanie ma byc w nowym oknie
@@ -262,7 +262,7 @@ namespace Grafy
         public void Rysuj(Canvas canvas)
         {
 
-            
+            canvas.Children.Clear();
             int nodeCount = pkt;
             int nodeSize = 20; // rozmiar wierzchołka
             double centerX = nodeCount * nodeSize / 2;
@@ -285,16 +285,8 @@ namespace Grafy
                 Canvas.SetLeft(node, x - nodeSize / 2);
                 Canvas.SetTop(node, y - nodeSize / 2);
                 canvas.Children.Add(node);
-                //
-                FormattedText number = new FormattedText(
-                 i.ToString(),
-                 System.Globalization.CultureInfo.CurrentCulture,
-                 FlowDirection.LeftToRight,
-                 new Typeface("Arial"),
-                 12,
-                 Brushes.White,
-                VisualTreeHelper.GetDpi(node).PixelsPerDip
-                 );
+                //tu ma byc dodawanie numeru wierzcholka
+ 
                 // rysowanie krawędzi
                 for (int j = 0; j < nodeCount; j++)
                 {
@@ -317,6 +309,24 @@ namespace Grafy
                         canvas.Children.Add(edge);
                     }
                 }
+                FormattedText number = new FormattedText(
+i.ToString(),
+System.Globalization.CultureInfo.CurrentCulture,
+FlowDirection.LeftToRight,
+new Typeface("Green"),
+12,
+Brushes.White,
+VisualTreeHelper.GetDpi(node).PixelsPerDip
+);
+                TextBlock textBlock = new TextBlock()
+                {
+                    Text = i.ToString(),
+                    Foreground = Brushes.Blue,
+                    FontSize = 16
+                };
+                Canvas.SetLeft(textBlock, x - nodeSize / 2 + 4);
+                Canvas.SetTop(textBlock, y - nodeSize / 2 + 4);
+                canvas.Children.Add(textBlock);
             }
 
         }
